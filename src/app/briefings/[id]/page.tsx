@@ -13,7 +13,7 @@ const meetings = [
     name: "Brandon Frisch",
     company: "Begin Software",
     role: "Managing Director & Co-founder",
-    image: "https://ui-avatars.com/api/?name=Brandon+Frisch&background=3b82f6&color=fff",
+    image: "https://ui-avatars.com/api/?name=Brandon+Frisch&background=166534&color=fff",
     bio: "Co-founder of Begin Software, a Denver-based software development team. Built dev teams for 50+ companies.",
     linkedin: "https://linkedin.com/in/brandonfrisch",
     talking_points: [
@@ -29,7 +29,7 @@ const meetings = [
     name: "Kate Simpson",
     company: "Gem Investments",
     role: "MD, Head of VC",
-    image: "https://ui-avatars.com/api/?name=Kate+Simpson&background=8b5cf6&color=fff",
+    image: "https://ui-avatars.com/api/?name=Kate+Simpson&background=166534&color=fff",
     bio: "24+ years in investment management. Leads VC initiatives at Gem's $12B OCIO platform.",
     linkedin: "https://linkedin.com/in/katesimpson",
     talking_points: [
@@ -45,7 +45,7 @@ const meetings = [
     name: "Hannah Corry",
     company: "Handle",
     role: "Co-founder",
-    image: "https://ui-avatars.com/api/?name=Hannah+Corry&background=10b981&color=fff",
+    image: "https://ui-avatars.com/api/?name=Hannah+Corry&background=166534&color=fff",
     bio: "YC-backed founder building construction finance and credit software.",
     linkedin: "https://linkedin.com/in/hannahcorry",
     talking_points: [
@@ -102,23 +102,25 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
   };
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      <nav className="flex items-center justify-between px-8 py-4 border-b border-slate-700 sticky top-0 bg-slate-900/95 backdrop-blur z-10">
+    <div className="min-h-screen bg-stone-50">
+      <nav className="flex items-center justify-between px-8 py-4 border-b border-stone-200 bg-white sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <Link href="/dashboard" className="text-slate-400 hover:text-white transition">
+          <Link href="/dashboard" className="text-stone-400 hover:text-green-700 transition">
             ← Back
           </Link>
-          <span className="text-slate-600">|</span>
+          <span className="text-stone-300">|</span>
           <Link href="/" className="flex items-center gap-2">
             <Image src="/logo.svg" alt="Presidia" width={28} height={28} />
-            <span className="text-xl font-bold text-white font-serif">Presidia</span>
+            <span className="text-xl font-bold text-green-900 font-serif">Presidia</span>
           </Link>
         </div>
         <div className="flex items-center gap-4">
           <button 
             onClick={() => setShowComments(!showComments)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition ${
-              showComments ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition border ${
+              showComments 
+                ? 'bg-green-700 text-white border-green-700' 
+                : 'bg-white text-stone-600 border-stone-200 hover:border-green-300'
             }`}
           >
             💬 {comments.length}
@@ -130,9 +132,9 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
       <div className="flex">
         <div className={`flex-1 max-w-4xl mx-auto px-8 py-12 transition-all ${showComments ? 'mr-80' : ''}`}>
           <div className="mb-8">
-            <div className="text-slate-500 text-sm mb-2">February 9, 2026</div>
-            <h1 className="text-4xl font-bold text-white mb-4 font-serif">Sunday Briefing</h1>
-            <div className="flex gap-4 text-slate-400">
+            <div className="text-stone-400 text-sm mb-2">February 9, 2026</div>
+            <h1 className="text-4xl font-bold text-green-900 mb-4 font-serif">Sunday Briefing</h1>
+            <div className="flex gap-4 text-stone-500">
               <span className="flex items-center gap-2">
                 <span>📅</span> 6 meetings
               </span>
@@ -149,10 +151,10 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
             {meetings.map((meeting) => (
               <div 
                 key={meeting.id}
-                className={`bg-slate-800/50 border rounded-xl overflow-hidden transition-all ${
+                className={`bg-white border rounded-xl overflow-hidden transition-all shadow-sm ${
                   expandedMeeting === meeting.id 
-                    ? 'border-blue-500/50' 
-                    : 'border-slate-700 hover:border-slate-600'
+                    ? 'border-green-300 shadow-md' 
+                    : 'border-stone-200 hover:border-green-200'
                 }`}
               >
                 <button
@@ -160,7 +162,7 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                   className="w-full p-6 text-left"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="text-slate-500 font-mono text-sm w-20">
+                    <div className="text-stone-400 font-mono text-sm w-20">
                       {meeting.time}
                     </div>
                     <img 
@@ -169,34 +171,34 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                       className="w-12 h-12 rounded-full"
                     />
                     <div className="flex-1">
-                      <div className="text-white font-semibold">{meeting.name}</div>
-                      <div className="text-slate-400 text-sm">
+                      <div className="text-green-900 font-semibold">{meeting.name}</div>
+                      <div className="text-stone-500 text-sm">
                         {meeting.role} @ {meeting.company}
                       </div>
                     </div>
-                    <span className={`transition-transform ${expandedMeeting === meeting.id ? 'rotate-180' : ''}`}>
+                    <span className={`text-stone-400 transition-transform ${expandedMeeting === meeting.id ? 'rotate-180' : ''}`}>
                       ▼
                     </span>
                   </div>
                 </button>
 
                 {expandedMeeting === meeting.id && (
-                  <div className="px-6 pb-6 pt-2 border-t border-slate-700 space-y-6">
+                  <div className="px-6 pb-6 pt-2 border-t border-stone-100 space-y-6">
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">
+                      <h3 className="text-sm font-semibold text-stone-400 uppercase tracking-wide mb-2">
                         Background
                       </h3>
-                      <p className="text-slate-300">{meeting.bio}</p>
+                      <p className="text-stone-700">{meeting.bio}</p>
                     </div>
 
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">
+                      <h3 className="text-sm font-semibold text-stone-400 uppercase tracking-wide mb-2">
                         Suggested Talking Points
                       </h3>
                       <ul className="space-y-2">
                         {meeting.talking_points.map((point, i) => (
-                          <li key={i} className="flex items-start gap-2 text-slate-300">
-                            <span className="text-blue-400">•</span>
+                          <li key={i} className="flex items-start gap-2 text-stone-700">
+                            <span className="text-green-600">•</span>
                             {point}
                           </li>
                         ))}
@@ -204,10 +206,10 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                     </div>
 
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">
+                      <h3 className="text-sm font-semibold text-stone-400 uppercase tracking-wide mb-2">
                         Recent News
                       </h3>
-                      <p className="text-slate-300">{meeting.recent_news}</p>
+                      <p className="text-stone-700">{meeting.recent_news}</p>
                     </div>
 
                     <div className="flex gap-3 pt-2">
@@ -215,7 +217,7 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                         href={meeting.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition"
+                        className="px-4 py-2 bg-green-700 text-white rounded-lg text-sm hover:bg-green-800 transition"
                       >
                         View LinkedIn
                       </a>
@@ -224,7 +226,7 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                           setShowComments(true);
                           setNewComment(`Tell me more about ${meeting.name}'s `);
                         }}
-                        className="px-4 py-2 bg-slate-700 text-white rounded-lg text-sm hover:bg-slate-600 transition"
+                        className="px-4 py-2 bg-stone-100 text-stone-700 rounded-lg text-sm hover:bg-stone-200 transition border border-stone-200"
                       >
                         🔍 Dig Deeper
                       </button>
@@ -237,35 +239,35 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
         </div>
 
         {/* Comments Sidebar */}
-        <div className={`fixed right-0 top-[65px] bottom-0 w-80 bg-slate-800 border-l border-slate-700 transform transition-transform ${
+        <div className={`fixed right-0 top-[65px] bottom-0 w-80 bg-white border-l border-stone-200 transform transition-transform shadow-lg ${
           showComments ? 'translate-x-0' : 'translate-x-full'
         }`}>
           <div className="flex flex-col h-full">
-            <div className="p-4 border-b border-slate-700">
-              <h3 className="font-semibold text-white">Comments & Requests</h3>
-              <p className="text-sm text-slate-400">Ask for more info or deeper research</p>
+            <div className="p-4 border-b border-stone-200">
+              <h3 className="font-semibold text-green-900">Comments & Requests</h3>
+              <p className="text-sm text-stone-500">Ask for more info or deeper research</p>
             </div>
             
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {comments.map((comment) => (
                 <div key={comment.id} className={`p-3 rounded-lg ${
-                  comment.isAI ? 'bg-blue-600/20 border border-blue-500/30' : 'bg-slate-700/50'
+                  comment.isAI ? 'bg-green-50 border border-green-200' : 'bg-stone-50 border border-stone-200'
                 }`}>
                   <div className="flex items-center gap-2 mb-2">
                     <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${
-                      comment.isAI ? 'bg-blue-600 text-white' : 'bg-slate-600 text-slate-300'
+                      comment.isAI ? 'bg-green-700 text-white' : 'bg-stone-300 text-stone-600'
                     }`}>
                       {comment.avatar}
                     </div>
-                    <span className="text-sm font-medium text-white">{comment.user}</span>
+                    <span className="text-sm font-medium text-stone-800">{comment.user}</span>
                     {comment.isAI && (
-                      <span className="text-xs bg-blue-600/50 text-blue-300 px-1.5 py-0.5 rounded">AI</span>
+                      <span className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-medium">AI</span>
                     )}
-                    <span className="text-xs text-slate-500 ml-auto">{comment.time}</span>
+                    <span className="text-xs text-stone-400 ml-auto">{comment.time}</span>
                   </div>
-                  <p className="text-sm text-slate-300">{comment.text}</p>
+                  <p className="text-sm text-stone-700">{comment.text}</p>
                   {comment.status === "pending" && !comment.isAI && (
-                    <div className="mt-2 text-xs text-yellow-400 flex items-center gap-1">
+                    <div className="mt-2 text-xs text-amber-600 flex items-center gap-1">
                       ⏳ Lauren is working on this...
                     </div>
                   )}
@@ -273,7 +275,7 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
               ))}
             </div>
 
-            <div className="p-4 border-t border-slate-700">
+            <div className="p-4 border-t border-stone-200 bg-stone-50">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -281,11 +283,11 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                   onChange={(e) => setNewComment(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleAddComment()}
                   placeholder="Ask for more info..."
-                  className="flex-1 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                  className="flex-1 bg-white border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500"
                 />
                 <button 
                   onClick={handleAddComment}
-                  className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition"
+                  className="px-3 py-2 bg-green-700 text-white rounded-lg text-sm hover:bg-green-800 transition"
                 >
                   Send
                 </button>
