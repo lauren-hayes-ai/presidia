@@ -3,31 +3,15 @@ import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 
-// Sample briefings data (will be replaced with real data)
+// Real briefing data
 const briefings = [
   {
     id: "2026-02-09",
-    date: "February 9, 2026",
-    title: "Sunday Briefing",
+    date: "Sunday, February 9, 2026",
+    title: "Daily Briefing",
     meetingCount: 6,
     status: "ready",
-    comments: 3,
-  },
-  {
-    id: "2026-02-08",
-    date: "February 8, 2026", 
-    title: "Saturday Briefing",
-    meetingCount: 2,
-    status: "ready",
-    comments: 0,
-  },
-  {
-    id: "2026-02-07",
-    date: "February 7, 2026",
-    title: "Friday Briefing", 
-    meetingCount: 8,
-    status: "ready",
-    comments: 5,
+    companies: ["Begin Software", "Gem Investments", "Handle", "Abstract", "Spring Street Wealth", "Inflection Capital"],
   },
 ];
 
@@ -66,14 +50,6 @@ export default async function Dashboard() {
             <h1 className="text-3xl font-bold text-green-900 font-serif">Your Briefings</h1>
             <p className="text-stone-500 mt-1">Daily intelligence and meeting prep</p>
           </div>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 bg-white text-stone-600 rounded-lg hover:bg-stone-100 transition border border-stone-200">
-              All Briefings
-            </button>
-            <button className="px-4 py-2 bg-white text-stone-600 rounded-lg hover:bg-stone-100 transition border border-stone-200">
-              My Meetings
-            </button>
-          </div>
         </div>
 
         <div className="grid gap-4">
@@ -91,11 +67,13 @@ export default async function Dashboard() {
                   </h2>
                   <div className="flex items-center gap-4 text-stone-500 mt-2">
                     <span>{briefing.meetingCount} external meetings</span>
-                    {briefing.comments > 0 && (
-                      <span className="flex items-center gap-1">
-                        <span>💬</span> {briefing.comments} comments
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {briefing.companies.map((company, i) => (
+                      <span key={i} className="px-2 py-1 bg-stone-100 text-stone-600 rounded text-xs">
+                        {company}
                       </span>
-                    )}
+                    ))}
                   </div>
                 </div>
                 <div className="flex items-center gap-4">

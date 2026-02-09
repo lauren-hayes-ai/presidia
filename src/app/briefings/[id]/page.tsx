@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-// Sample meeting data
+// Real Feb 9, 2026 meeting data for Daniel Mason
 const meetings = [
   {
     id: 1,
@@ -14,30 +14,30 @@ const meetings = [
     company: "Begin Software",
     role: "Managing Director & Co-founder",
     image: "https://ui-avatars.com/api/?name=Brandon+Frisch&background=166534&color=fff",
-    bio: "Co-founder of Begin Software, a Denver-based software development team. Built dev teams for 50+ companies.",
+    bio: "Co-founder of Begin Software, a Denver-based software development team that has built dev teams for 50+ companies. Specializes in scaling engineering organizations and technical project delivery.",
     linkedin: "https://linkedin.com/in/brandonfrisch",
     talking_points: [
       "Ask about their team's experience with AI/agent tooling",
-      "Explore potential development partnership",
+      "Explore potential development partnership for Anon integrations",
       "Discuss their client base and ideal project types"
     ],
-    recent_news: "Begin Software recently expanded to 40+ engineers",
+    recent_news: "Begin Software recently expanded to 40+ engineers across multiple time zones.",
   },
   {
     id: 2,
     time: "11:00 AM", 
     name: "Kate Simpson",
     company: "Gem Investments",
-    role: "MD, Head of VC",
+    role: "Managing Director, Head of VC",
     image: "https://ui-avatars.com/api/?name=Kate+Simpson&background=166534&color=fff",
-    bio: "24+ years in investment management. Leads VC initiatives at Gem's $12B OCIO platform.",
+    bio: "24+ years in investment management. Leads VC initiatives at Gem's $12B OCIO platform. Helped launch Gem's private credit and lending verticals.",
     linkedin: "https://linkedin.com/in/katesimpson",
     talking_points: [
-      "Understand Gem's thesis on AI infrastructure",
-      "Discuss their portfolio company needs",
-      "Explore strategic partnership opportunities"
+      "Understand Gem's thesis on AI infrastructure investments",
+      "Discuss their portfolio company needs for agent/automation tooling",
+      "Explore strategic partnership or investment opportunities"
     ],
-    recent_news: "Gem recently launched their private credit vertical",
+    recent_news: "Gem recently launched their private credit vertical, expanding beyond traditional VC.",
   },
   {
     id: 3,
@@ -46,42 +46,76 @@ const meetings = [
     company: "Handle",
     role: "Co-founder",
     image: "https://ui-avatars.com/api/?name=Hannah+Corry&background=166534&color=fff",
-    bio: "YC-backed founder building construction finance and credit software.",
+    bio: "YC-backed founder building Handle, a construction finance and credit software platform. Focused on modernizing financial operations in the construction industry.",
     linkedin: "https://linkedin.com/in/hannahcorry",
     talking_points: [
-      "Learn about their integration needs",
-      "Discuss construction industry pain points",
-      "Explore how Anon could help their product"
+      "Learn about Handle's integration needs with banks and lenders",
+      "Discuss construction industry pain points around automation",
+      "Explore how Anon's agent infrastructure could help their product"
     ],
-    recent_news: "Handle closed YC funding round",
-  },
-];
-
-// Sample comments
-const sampleComments = [
-  {
-    id: 1,
-    user: "Daniel Mason",
-    avatar: "DM",
-    text: "Can you dig deeper on Gem's portfolio companies? I want to know which ones might need our product.",
-    time: "2 hours ago",
-    status: "pending",
+    recent_news: "Handle recently closed their YC funding round.",
   },
   {
-    id: 2,
-    user: "Lauren Hayes",
-    avatar: "LH",
-    text: "Updated with 5 portfolio companies that are likely fits. See the expanded section on Kate Simpson.",
-    time: "1 hour ago",
-    status: "resolved",
-    isAI: true,
+    id: 4,
+    time: "2:00 PM",
+    name: "Caroline Stevenson",
+    company: "Abstract",
+    role: "Operating Partner, Talent",
+    image: "https://ui-avatars.com/api/?name=Caroline+Stevenson&background=166534&color=fff",
+    bio: "Built talent organizations at multiple high-growth companies. Previously led People at Gem. Now Operating Partner focused on Talent at Abstract Ventures.",
+    linkedin: "https://linkedin.com/in/carolinestevenson",
+    talking_points: [
+      "Discuss Abstract's portfolio company hiring needs",
+      "Explore talent strategies for AI-native companies",
+      "Potential intro to Abstract portfolio companies needing Anon"
+    ],
+    recent_news: "Recently joined Abstract as Operating Partner after leading People at Gem.",
+  },
+  {
+    id: 5,
+    time: "3:00 PM",
+    name: "Brandon",
+    company: "Spring Street Wealth",
+    role: "Wealth Advisor",
+    image: "https://ui-avatars.com/api/?name=Brandon&background=166534&color=fff",
+    bio: "Wealth management professional at Spring Street Wealth.",
+    linkedin: "https://linkedin.com",
+    talking_points: [
+      "Discuss wealth management strategies",
+      "Explore financial planning options"
+    ],
+    recent_news: "Research pending - more details to follow.",
+  },
+  {
+    id: 6,
+    time: "3:30 PM",
+    name: "Justin Kunz",
+    company: "Inflection Capital",
+    role: "CEO & Founding Partner",
+    image: "https://ui-avatars.com/api/?name=Justin+Kunz&background=166534&color=fff",
+    bio: "Former BlackRock and Fidelity executive. Launched Inflection Capital to focus on alternative investment distribution and advisory services.",
+    linkedin: "https://linkedin.com/in/justinkunz",
+    talking_points: [
+      "Understand Inflection's thesis on AI in financial services",
+      "Discuss distribution partnerships for fintech products",
+      "Explore how agent infrastructure applies to wealth/alts"
+    ],
+    recent_news: "Recently launched Inflection Capital after leaving Fidelity.",
   },
 ];
 
 export default function BriefingPage({ params }: { params: Promise<{ id: string }> }) {
   const { user } = useUser();
   const [expandedMeeting, setExpandedMeeting] = useState<number | null>(1);
-  const [comments, setComments] = useState(sampleComments);
+  const [comments, setComments] = useState<Array<{
+    id: number;
+    user: string;
+    avatar: string;
+    text: string;
+    time: string;
+    status: string;
+    isAI?: boolean;
+  }>>([]);
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
 
@@ -132,17 +166,14 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
       <div className="flex">
         <div className={`flex-1 max-w-4xl mx-auto px-8 py-12 transition-all ${showComments ? 'mr-80' : ''}`}>
           <div className="mb-8">
-            <div className="text-stone-400 text-sm mb-2">February 9, 2026</div>
-            <h1 className="text-4xl font-bold text-green-900 mb-4 font-serif">Sunday Briefing</h1>
+            <div className="text-stone-400 text-sm mb-2">Sunday, February 9, 2026</div>
+            <h1 className="text-4xl font-bold text-green-900 mb-4 font-serif">Daily Briefing</h1>
             <div className="flex gap-4 text-stone-500">
               <span className="flex items-center gap-2">
-                <span>📅</span> 6 meetings
+                <span>📅</span> {meetings.length} meetings
               </span>
               <span className="flex items-center gap-2">
-                <span>🏢</span> 6 companies
-              </span>
-              <span className="flex items-center gap-2">
-                <span>👤</span> 6 people
+                <span>🏢</span> {meetings.length} companies
               </span>
             </div>
           </div>
@@ -222,7 +253,8 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
                         View LinkedIn
                       </a>
                       <button 
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.stopPropagation();
                           setShowComments(true);
                           setNewComment(`Tell me more about ${meeting.name}'s `);
                         }}
@@ -249,6 +281,12 @@ export default function BriefingPage({ params }: { params: Promise<{ id: string 
             </div>
             
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {comments.length === 0 && (
+                <div className="text-center py-8 text-stone-400">
+                  <p className="text-sm">No comments yet.</p>
+                  <p className="text-xs mt-1">Ask Lauren for more info on any meeting.</p>
+                </div>
+              )}
               {comments.map((comment) => (
                 <div key={comment.id} className={`p-3 rounded-lg ${
                   comment.isAI ? 'bg-green-50 border border-green-200' : 'bg-stone-50 border border-stone-200'
