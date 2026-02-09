@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="95" stroke="#3b82f6" stroke-width="3" fill="none"/>
+  <circle cx="100" cy="100" r="85" stroke="#1e40af" stroke-width="2" fill="none"/>
+  
+  <!-- Inner circle background -->
+  <circle cx="100" cy="100" r="80" fill="#0f172a"/>
+  
+  <!-- Stars around the edge -->
+  <g fill="#3b82f6">
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(0, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(30, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(60, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(90, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(120, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(150, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(180, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(210, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(240, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(270, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(300, 100, 100)"/>
+    <polygon points="100,15 102,22 109,22 104,27 106,34 100,30 94,34 96,27 91,22 98,22" transform="rotate(330, 100, 100)"/>
+  </g>
+  
+  <!-- Central P emblem -->
+  <text x="100" y="115" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="#3b82f6" text-anchor="middle">P</text>
+  
+  <!-- Text around the seal -->
+  <defs>
+    <path id="topArc" d="M 30 100 A 70 70 0 0 1 170 100"/>
+    <path id="bottomArc" d="M 170 100 A 70 70 0 0 1 30 100"/>
+  </defs>
+  
+  <text fill="#64748b" font-family="Georgia, serif" font-size="11" letter-spacing="3">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">PRESIDIA</textPath>
+  </text>
+  <text fill="#64748b" font-family="Georgia, serif" font-size="9" letter-spacing="2">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">DAILY INTELLIGENCE</textPath>
+  </text>
+</svg>

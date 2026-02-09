@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import Link from "next/link";
+import Image from "next/image";
 
 // Sample briefings data (will be replaced with real data)
 const briefings = [
@@ -10,6 +11,7 @@ const briefings = [
     title: "Sunday Briefing",
     meetingCount: 6,
     status: "ready",
+    comments: 3,
   },
   {
     id: "2026-02-08",
@@ -17,6 +19,7 @@ const briefings = [
     title: "Saturday Briefing",
     meetingCount: 2,
     status: "ready",
+    comments: 0,
   },
   {
     id: "2026-02-07",
@@ -24,6 +27,7 @@ const briefings = [
     title: "Friday Briefing", 
     meetingCount: 8,
     status: "ready",
+    comments: 5,
   },
 ];
 
@@ -33,8 +37,22 @@ export default async function Dashboard() {
   return (
     <div className="min-h-screen bg-slate-900">
       <nav className="flex items-center justify-between px-8 py-4 border-b border-slate-700">
-        <Link href="/" className="text-2xl font-bold text-white">Presidia</Link>
+        <Link href="/" className="flex items-center gap-3">
+          <Image src="/logo.svg" alt="Presidia" width={32} height={32} />
+          <span className="text-xl font-bold text-white font-serif">Presidia</span>
+        </Link>
         <div className="flex items-center gap-4">
+          <OrganizationSwitcher 
+            appearance={{
+              elements: {
+                rootBox: "text-white",
+                organizationSwitcherTrigger: "text-slate-300 hover:text-white",
+              }
+            }}
+            afterCreateOrganizationUrl="/dashboard"
+            afterLeaveOrganizationUrl="/dashboard"
+            afterSelectOrganizationUrl="/dashboard"
+          />
           <span className="text-slate-400">
             {user?.firstName || user?.emailAddresses[0]?.emailAddress}
           </span>
@@ -45,7 +63,7 @@ export default async function Dashboard() {
       <div className="max-w-6xl mx-auto px-8 py-12">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white">Your Briefings</h1>
+            <h1 className="text-3xl font-bold text-white font-serif">Your Briefings</h1>
             <p className="text-slate-400 mt-1">Daily intelligence and meeting prep</p>
           </div>
           <div className="flex gap-2">
@@ -68,18 +86,23 @@ export default async function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-slate-500 mb-1">{briefing.date}</div>
-                  <h2 className="text-xl font-semibold text-white group-hover:text-blue-400 transition">
+                  <h2 className="text-xl font-semibold text-white group-hover:text-blue-400 transition font-serif">
                     {briefing.title}
                   </h2>
-                  <div className="text-slate-400 mt-2">
-                    {briefing.meetingCount} external meetings
+                  <div className="flex items-center gap-4 text-slate-400 mt-2">
+                    <span>{briefing.meetingCount} external meetings</span>
+                    {briefing.comments > 0 && (
+                      <span className="flex items-center gap-1">
+                        <span>💬</span> {briefing.comments} comments
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">
                     {briefing.status}
                   </span>
-                  <span className="text-slate-500 group-hover:text-slate-300 transition">
+                  <span className="text-slate-500 group-hover:text-slate-300 transition text-xl">
                     →
                   </span>
                 </div>
@@ -91,7 +114,7 @@ export default async function Dashboard() {
         {briefings.length === 0 && (
           <div className="text-center py-16">
             <div className="text-4xl mb-4">📋</div>
-            <h2 className="text-xl font-semibold text-white mb-2">No briefings yet</h2>
+            <h2 className="text-xl font-semibold text-white mb-2 font-serif">No briefings yet</h2>
             <p className="text-slate-400">Your daily briefings will appear here</p>
           </div>
         )}
