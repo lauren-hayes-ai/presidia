@@ -12,7 +12,7 @@ const lifestyleMoments = [
   { hour: 22, time: "10:00 PM", emoji: "🌙", label: "Rest up", sublabel: "Tomorrow's another big day" },
 ];
 
-type MeetingRow = ReturnType<typeof getMeetingsForBriefing>[number];
+type MeetingRow = Awaited<ReturnType<typeof getMeetingsForBriefing>>[number];
 
 type TimelineItem =
   | { type: "lifestyle"; hour: number; time: string; emoji: string; label: string; sublabel: string }
@@ -35,10 +35,10 @@ function buildTimeline(meetings: MeetingRow[]) {
 
 export default async function BriefingPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const briefing = getBriefing(id);
+  const briefing = await getBriefing(id);
   if (!briefing) notFound();
 
-  const meetings = getMeetingsForBriefing(id);
+  const meetings = await getMeetingsForBriefing(id);
   const timeline = buildTimeline(meetings);
 
   return (

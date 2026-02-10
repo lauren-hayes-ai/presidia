@@ -7,11 +7,13 @@ import BackButton from "@/app/components/BackButton";
 
 export default async function OrganizationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const org = getOrganization(Number(id));
+  const org = await getOrganization(Number(id));
   if (!org) notFound();
 
-  const contacts = getContactsForOrganization(Number(id));
-  const meetings = getMeetingsForOrganization(Number(id));
+  const [contacts, meetings] = await Promise.all([
+    getContactsForOrganization(Number(id)),
+    getMeetingsForOrganization(Number(id)),
+  ]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -43,7 +45,7 @@ export default async function OrganizationPage({ params }: { params: Promise<{ i
               People ({contacts.length})
             </h2>
             <div className="space-y-2">
-              {contacts.map((c) => (
+              {contacts.map((c: any) => (
                 <Link
                   key={c.id}
                   href={`/contacts/${c.id}`}
@@ -70,7 +72,7 @@ export default async function OrganizationPage({ params }: { params: Promise<{ i
               Meetings ({meetings.length})
             </h2>
             <div className="space-y-2">
-              {meetings.map((m) => (
+              {meetings.map((m: any) => (
                 <Link
                   key={m.id}
                   href={`/briefings/${m.briefingId}/meetings/${m.id}`}

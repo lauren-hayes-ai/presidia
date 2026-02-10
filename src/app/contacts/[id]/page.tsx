@@ -17,14 +17,16 @@ const linkIcons: Record<string, string> = {
 
 export default async function ContactPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const contact = getContact(Number(id));
+  const contact = await getContact(Number(id));
   if (!contact) notFound();
 
-  const meetings = getMeetingsForContact(Number(id));
-  const links = getLinksForContact(Number(id));
-  const career = getCareerForContact(Number(id));
-  const news = getNewsForContact(Number(id));
-  const lifeEvents = getLifeEventsForContact(Number(id));
+  const [meetings, links, career, news, lifeEvents]: any[] = await Promise.all([
+    getMeetingsForContact(Number(id)),
+    getLinksForContact(Number(id)),
+    getCareerForContact(Number(id)),
+    getNewsForContact(Number(id)),
+    getLifeEventsForContact(Number(id)),
+  ]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -73,7 +75,7 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
             <section>
               <h2 className="text-xs font-medium text-stone-400 uppercase tracking-widest mb-3">Links</h2>
               <div className="flex flex-wrap gap-2">
-                {links.map((link) => (
+                {links.map((link: any) => (
                   <a
                     key={link.id}
                     href={link.url}
@@ -95,7 +97,7 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
               <div className="relative">
                 <div className="absolute left-[3px] top-2 bottom-2 w-px bg-gray-100" />
                 <div className="space-y-4">
-                  {career.map((entry) => (
+                  {career.map((entry: any) => (
                     <div key={entry.id} className="flex gap-4 pl-0">
                       <div className="relative z-[1] mt-1.5 shrink-0">
                         <div className={`w-[7px] h-[7px] rounded-full ${entry.isCurrent ? 'bg-stone-800' : 'bg-gray-200'}`} />
@@ -141,7 +143,7 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
             <section>
               <h2 className="text-xs font-medium text-stone-400 uppercase tracking-widest mb-3">Recent News & Activity</h2>
               <div className="space-y-3">
-                {news.map((item) => (
+                {news.map((item: any) => (
                   <div key={item.id} className="border border-gray-100 rounded-lg px-4 py-3">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
@@ -181,7 +183,7 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
             <section>
               <h2 className="text-xs font-medium text-stone-400 uppercase tracking-widest mb-3">Life Events</h2>
               <div className="space-y-3">
-                {lifeEvents.map((event) => (
+                {lifeEvents.map((event: any) => (
                   <div key={event.id} className="flex gap-4 items-start">
                     <div className="text-stone-300 text-xs font-mono w-20 shrink-0 mt-0.5 text-right">{event.date}</div>
                     <div className="flex-1">
@@ -216,7 +218,7 @@ export default async function ContactPage({ params }: { params: Promise<{ id: st
               Meetings ({meetings.length})
             </h2>
             <div className="space-y-2">
-              {meetings.map((m) => (
+              {meetings.map((m: any) => (
                 <Link
                   key={m.id}
                   href={`/briefings/${m.briefingId}/meetings/${m.id}`}

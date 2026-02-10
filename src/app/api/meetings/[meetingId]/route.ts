@@ -6,17 +6,19 @@ export async function GET(
   { params }: { params: Promise<{ meetingId: string }> }
 ) {
   const { meetingId } = await params;
-  const meeting = getMeeting(Number(meetingId));
+  const meeting = await getMeeting(Number(meetingId));
   if (!meeting) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
   const contactId = meeting.contactId;
-  const links = getLinksForContact(contactId);
-  const career = getCareerForContact(contactId);
-  const news = getNewsForContact(contactId);
-  const lifeEvents = getLifeEventsForContact(contactId);
-  const timeline = getTimelineForContact(contactId);
+  const [links, career, news, lifeEvents, timeline] = await Promise.all([
+    getLinksForContact(contactId),
+    getCareerForContact(contactId),
+    getNewsForContact(contactId),
+    getLifeEventsForContact(contactId),
+    getTimelineForContact(contactId),
+  ]);
 
   return NextResponse.json({ ...meeting, links, career, news, lifeEvents, timeline });
 }
